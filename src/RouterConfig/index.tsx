@@ -1,15 +1,14 @@
-import styled from "styled-components";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import styled from "styled-components";
 
+import { root } from "../utils/routes";
 import Footer from "../layout/Footer";
 import Header from "../layout/Header";
-import { root } from "../utils/routes";
 import Home from "../pages/Home";
 
 const MainContainer = styled.main`
   display: flex;
   justify-content: center;
-  margin: 1rem auto;
 `;
 
 const RouterConfig = () => {

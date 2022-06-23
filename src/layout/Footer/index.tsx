@@ -3,15 +3,14 @@ import styled from "styled-components";
 import { primary, white } from "../../utils/colors";
 
 const Container = styled.footer`
+  // position: fixed;
+  // bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 2rem;
   background-color: ${primary};
-  position: fixed;
   padding: 0.2rem;
-  bottom: 0;
-  width: 100%;
 `;
 
 const ParagraphStyled = styled.p`

@@ -1,0 +1,84 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Barra de cereal Nutrilate",
+      "description": "Barra de cereal castañas y cobertura de chocolate",
+      "price": 200,
+      "image": "https://d6squ07ztsb0a.cloudfront.net/images/125_barra-banana-y-miel.png",
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "Gatorade cool blue 1lt",
+      "description": "Bebida isotónica Gatorade sabor Cool Blue en formato de 1250 ml. Gracias a su fórmula, que permite reponer rápidamente los líquidos y sales minerales que se pierden al transpirar, y por permitir la rápida rehidratación, Gatorade es la bebida elegida por la mayoría de los amantes del deporte. En cada etapa de tus entrenamientos o competencias, necesitas un beneficio especifico. Nacido en laboratorio.Probado en el campo de juego por los mejores atletas del mundo.",
+      "price": 240,
+      "image": "http://cdn.shopify.com/s/files/1/0254/2947/5433/products/gatorade-cool-blue-125L-siempreencasa_1000x.png?v=1617807439",
+      "available": true
+    },
+    {
+      "id": 3,
+      "name": "Gatorade frutas tropicales 1lt",
+      "description": "Bebida isotónica Gatorade sabor Cool Blue en formato de 1250 ml. Gracias a su fórmula, que permite reponer rápidamente los líquidos y sales minerales que se pierden al transpirar, y por permitir la rápida rehidratación, Gatorade es la bebida elegida por la mayoría de los amantes del deporte. En cada etapa de tus entrenamientos o competencias, necesitas un beneficio especifico. Nacido en laboratorio.Probado en el campo de juego por los mejores atletas del mundo.",
+      "price": 240,
+      "image": "http://cdn.shopify.com/s/files/1/0254/2947/5433/products/gatorade-frutas-tropicales-125L-siempreencasa_1000x.png?v=1623970554",
+      "available": true
+    },
+    {
+      "id": 4,
+      "name": "Whipped barra proteica ultrapoderosa",
+      "description": "La barra de proteína batida de Optimum Nutrition es el equilibrio perfecto entre un alto contenido de proteínas y un gran sabor. Una deliciosa base blanda y batida se cubre con capas de crujientes y caramelo y se recubre con auténtica cobertura de chocolate con leche para una experiencia de sabor inigualable. Se supone que las barritas de proteínas no tienen que saber tan bien.",
+      "price": 240,
+      "image": "https://content.optimumnutrition.com/i/on/on-C101014_Image_01?PDP_THUMB_003$&fmt=auto&locale=de-de,en-gb,*&img404=no-product-image&v=1",
+      "available": true
+    },
+    {
+      "id": 5,
+      "name": "Barra de cereal Nutrilate",
+      "description": "Barra de cereal castañas y cobertura de chocolate",
+      "price": null,
+      "image": "https://d6squ07ztsb0a.cloudfront.net/images/125_barra-banana-y-miel.png",
+      "available": true
+    },
+    {
+      "id": 6,
+      "name": "Gatorade cool blue 1lt",
+      "description": "Bebida isotónica Gatorade sabor Cool Blue en formato de 1250 ml. Gracias a su fórmula, que permite reponer rápidamente los líquidos y sales minerales que se pierden al transpirar, y por permitir la rápida rehidratación, Gatorade es la bebida elegida por la mayoría de los amantes del deporte. En cada etapa de tus entrenamientos o competencias, necesitas un beneficio especifico. Nacido en laboratorio.Probado en el campo de juego por los mejores atletas del mundo.",
+      "price": 240,
+      "image": "http://cdn.shopify.com/s/files/1/0254/2947/5433/products/gatorade-cool-blue-125L-siempreencasa_1000x.png?v=1617807439",
+      "available": false
+    },
+    {
+      "id": 7,
+      "name": "Gatorade frutas tropicales 1lt",
+      "description": "Bebida isotónica Gatorade sabor Cool Blue en formato de 1250 ml. Gracias a su fórmula, que permite reponer rápidamente los líquidos y sales minerales que se pierden al transpirar, y por permitir la rápida rehidratación, Gatorade es la bebida elegida por la mayoría de los amantes del deporte. En cada etapa de tus entrenamientos o competencias, necesitas un beneficio especifico. Nacido en laboratorio.Probado en el campo de juego por los mejores atletas del mundo.",
+      "price": 240,
+      "image": "http://cdn.shopify.com/s/files/1/0254/2947/5433/products/gatorade-frutas-tropicales-125L-siempreencasa_1000x.png?v=1623970554",
+      "available": true
+    },
+    {
+      "id": 8,
+      "name": "Whipped barra proteica",
+      "description": "La barra de proteína batida de Optimum Nutrition es el equilibrio perfecto entre un alto contenido de proteínas y un gran sabor. Una deliciosa base blanda y batida se cubre con capas de crujientes y caramelo y se recubre con auténtica cobertura de chocolate con leche para una experiencia de sabor inigualable. Se supone que las barritas de proteínas no tienen que saber tan bien.",
+      "price": 240,
+      "image": "https://content.optimumnutrition.com/i/on/on-C101014_Image_01?PDP_THUMB_003$&fmt=auto&locale=de-de,en-gb,*&img404=no-product-image&v=1",
+      "available": true
+    },
+    {
+      "id": 9,
+      "name": "Barra de cereal Nutrilate",
+      "description": "Barra de cereal castañas y cobertura de chocolate",
+      "price": 200,
+      "image": "https://d6squ07ztsb0a.cloudfront.net/images/125_barra-banana-y-miel.png",
+      "available": true
+    },
+    {
+      "id": 10,
+      "name": "Gatorade cool blue 1lt",
+      "description": "Bebida isotónica Gatorade sabor Cool Blue en formato de 1250 ml. Gracias a su fórmula, que permite reponer rápidamente los líquidos y sales minerales que se pierden al transpirar, y por permitir la rápida rehidratación, Gatorade es la bebida elegida por la mayoría de los amantes del deporte. En cada etapa de tus entrenamientos o competencias, necesitas un beneficio especifico. Nacido en laboratorio.Probado en el campo de juego por los mejores atletas del mundo.",
+      "price": 240,
+      "image": "http://cdn.shopify.com/s/files/1/0254/2947/5433/products/gatorade-cool-blue-125L-siempreencasa_1000x.png?v=1617807439",
+      "available": true
+    }
+  ]
+}
