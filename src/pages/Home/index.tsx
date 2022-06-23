@@ -21,7 +21,6 @@ interface ProductInterface {
 
 const Home = () => {
   const { data }: { data: ProductInterface[] } = mockResult;
-  //TODO: Create Loading animation to ProductRow
 
   return (
     <ProductsContainer>
@@ -29,7 +28,6 @@ const Home = () => {
         <ProductRow
           key={product.id}
           name={product.name}
-          description={product.description}
           price={product.price}
           image={product.image}
           available={product.available}
