@@ -13,7 +13,7 @@ const ProductsContainer = styled.div`
 interface ProductInterface {
   id: number;
   name: string;
-  description?: string;
+  description: string;
   price: number | null;
   image?: string;
   available: boolean;
@@ -31,6 +31,7 @@ const Home = () => {
           price={product.price}
           image={product.image}
           available={product.available}
+          description={product.description}
         />
       ))}
     </ProductsContainer>

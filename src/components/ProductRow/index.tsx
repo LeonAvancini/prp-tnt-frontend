@@ -1,6 +1,7 @@
+import { useState } from "react";
 import styled from "styled-components";
-import { darkGray, gray, white } from "../../utils/colors";
-import ProductModal from "../ProductModal";
+import { darkGray, gray, primary, secondary, white } from "../../utils/colors";
+import Modal from "../Modal";
 
 const RowContainer = styled.div<{ showProduct?: boolean }>`
   display: ${(props) => (props.showProduct ? "flex" : "none")};
@@ -21,21 +22,74 @@ const ProductInformation = styled.div`
   justify-content: space-between;
 `;
 
-const NameStyled = styled.h4`
+const PreviewName = styled.h4`
   font-weight: 300;
+  text-align: left;
+  margin: 0rem 1rem;
 `;
 
-const PriceStyled = styled.p`
+const PreviewPrice = styled.p`
   color: ${darkGray};
   font-size: 1.3rem;
-  font-size: bold;
+  font-weight: bold;
 `;
 
-const ProductImage = styled.img`
+const PreviewProductImage = styled.img`
   height: auto;
   width: 20%;
   object-fit: contain;
   padding-right: 10px;
+`;
+
+const ProductImage = styled.img`
+  height: auto;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  border-top: 1px solid ${primary};
+  border-bottom: 1px solid ${primary};
+`;
+
+const Name = styled.h2`
+  color: ${secondary};
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+`;
+
+const DescriptionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+`;
+
+const ProductPriceContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: red;
+  position: absolute;
+  top: -4.6rem;
+  padding: 0.5rem;
+  right: 0.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+`;
+
+const ProductPrice = styled.p`
+  color: ${white};
+  font-weight: bold;
+`;
+
+const DescriptionText = styled.h3`
+  margin-top: 0rem;
+  margin-bottom: 0.5rem;
+`;
+
+const ProductDescription = styled.p`
+  text-align: left;
+  margin: 0;
 `;
 
 interface ProductRowProps {
@@ -43,23 +97,50 @@ interface ProductRowProps {
   price: number | null;
   image?: string;
   available: boolean;
+  description: string;
 }
 
-const ProductRow = ({ name, price, image, available }: ProductRowProps) => {
-  // TODO: Create a react portal => https://mauriciogc.medium.com/react-portales-8ff12de4b8e9
+const ProductRow = ({
+  name,
+  price,
+  image,
+  available,
+  description,
+}: ProductRowProps) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleModal = () => {
+    // e.preventDefault();
+    console.log("ENTRO");
+    toggleModal();
+  };
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
-      <RowContainer
-        showProduct={available}
-        onClick={() => console.log("Open modal function")}
-      >
-        <ProductImage src={image} alt={name} />
+      <RowContainer showProduct={available} onClick={handleModal}>
+        <PreviewProductImage src={image} alt={name} />
         <ProductInformation>
-          <NameStyled>{name}</NameStyled>
-          <PriceStyled>{price && <>${price}</>}</PriceStyled>
+          <PreviewName>{name}</PreviewName>
+          <PreviewPrice>{price && <>${price}</>}</PreviewPrice>
         </ProductInformation>
       </RowContainer>
-      <ProductModal onClose={() => console.log("Close modal function")} />
+      <Modal open={isOpen} onClose={handleModal}>
+        <Name>{name}</Name>
+        <ProductImage src={image} alt={name} />
+        <DescriptionContainer>
+          {price && (
+            <ProductPriceContainer>
+              <ProductPrice>${price}</ProductPrice>
+            </ProductPriceContainer>
+          )}
+          <DescriptionText>Descripcion:</DescriptionText>
+          <ProductDescription>{description}</ProductDescription>
+        </DescriptionContainer>
+      </Modal>
     </>
   );
 };
