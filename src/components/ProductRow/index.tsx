@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import { darkGray, gray, primary, secondary, white } from "../../utils/colors";
+import { editproduct } from "../../utils/routes";
 import Modal from "../Modal";
 
 const RowContainer = styled.div<{ showProduct?: boolean }>`
@@ -14,33 +17,28 @@ const RowContainer = styled.div<{ showProduct?: boolean }>`
     background-color: ${gray};
   }
 `;
-
 const ProductInformation = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
-
 const PreviewName = styled.h4`
   font-weight: 300;
   text-align: left;
   margin: 0rem 1rem;
 `;
-
 const PreviewPrice = styled.p`
   color: ${darkGray};
   font-size: 1.3rem;
   font-weight: bold;
 `;
-
 const PreviewProductImage = styled.img`
   height: auto;
   width: 20%;
   object-fit: contain;
   padding-right: 10px;
 `;
-
 const ProductImage = styled.img`
   height: auto;
   width: 100%;
@@ -48,7 +46,6 @@ const ProductImage = styled.img`
   border-top: 1px solid ${primary};
   border-bottom: 1px solid ${primary};
 `;
-
 const Name = styled.h2`
   color: ${secondary};
   margin-top: 0;
@@ -56,13 +53,11 @@ const Name = styled.h2`
   font-weight: bold;
   text-align: center;
 `;
-
 const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
 `;
-
 const ProductPriceContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -76,23 +71,38 @@ const ProductPriceContainer = styled.div`
   height: 2.5rem;
   border-radius: 50%;
 `;
-
 const ProductPrice = styled.p`
   color: ${white};
   font-weight: bold;
 `;
-
 const DescriptionText = styled.h3`
   margin-top: 0rem;
   margin-bottom: 0.5rem;
 `;
-
 const ProductDescription = styled.p`
   text-align: left;
   margin: 0;
 `;
+const ButtonContainer = styled.div`
+  height: auto;
+  width: 100%;
+  margin: 1rem 0rem;
+  border-top: 1px solid ${primary};
+`;
+const AddProductButton = styled.button`
+  padding: 1rem;
+  background: ${primary};
+  border-radius: 0.4rem;
+  color: ${white};
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1rem;
+`;
 
 interface ProductRowProps {
+  id: number;
   name: string;
   price: number | null;
   image?: string;
@@ -101,13 +111,22 @@ interface ProductRowProps {
 }
 
 const ProductRow = ({
+  id,
   name,
   price,
   image,
   available,
   description,
 }: ProductRowProps) => {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleClick = () => {
+    const url = editproduct + id;
+    navigate(url);
+  };
+
+  const ADMIN = true;
 
   const handleModal = () => {
     // e.preventDefault();
@@ -128,6 +147,7 @@ const ProductRow = ({
           <PreviewPrice>{price && <>${price}</>}</PreviewPrice>
         </ProductInformation>
       </RowContainer>
+
       <Modal open={isOpen} onClose={handleModal}>
         <Name>{name}</Name>
         <ProductImage src={image} alt={name} />
@@ -140,6 +160,13 @@ const ProductRow = ({
           <DescriptionText>Descripcion:</DescriptionText>
           <ProductDescription>{description}</ProductDescription>
         </DescriptionContainer>
+        {ADMIN && (
+          <ButtonContainer>
+            <AddProductButton onClick={handleClick}>
+              Editar producto
+            </AddProductButton>
+          </ButtonContainer>
+        )}
       </Modal>
     </>
   );

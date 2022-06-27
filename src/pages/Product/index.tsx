@@ -114,7 +114,6 @@ const ProductForm = () => {
           />
           <ErrorMessage>{errors.name?.message}</ErrorMessage>
         </InputContainer>
-
         <InputContainer>
           <LabelStyled>
             <Required>*</Required> Descripción
@@ -122,13 +121,11 @@ const ProductForm = () => {
           <InputTextAreaStyled rows={5} {...register("description")} />
           <ErrorMessage>{errors.description?.message}</ErrorMessage>
         </InputContainer>
-
         <InputContainer>
           <LabelStyled>Precio</LabelStyled>
           <InputStyled type="number" {...register("price")} />
           <ErrorMessage>{errors.price?.message}</ErrorMessage>
         </InputContainer>
-
         <InputContainer>
           <LabelStyled>
             <Required>*</Required> Imagen
@@ -136,7 +133,6 @@ const ProductForm = () => {
           <input type="file" {...register("image")} />
           <ErrorMessage>{errors.image?.message}</ErrorMessage>
         </InputContainer>
-
         <InputContainer notColumn>
           <LabelStyled>Disponible</LabelStyled>
           <input type="checkbox" {...register("available")} />
