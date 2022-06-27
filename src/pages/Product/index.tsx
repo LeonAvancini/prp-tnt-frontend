@@ -84,7 +84,7 @@ const schema = yup
     name: yup
       .string()
       .required("Ingrese el nombre del producto")
-      .min(6, "El nombre del producto tiene que tener al menos 2 caracteres"),
+      .min(2, "El nombre del producto tiene que tener al menos 2 caracteres"),
     description: yup
       .string()
       .required("Ingrese la descripción del producto")
