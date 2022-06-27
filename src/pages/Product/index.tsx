@@ -81,12 +81,21 @@ const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
 const schema = yup
   .object({
-    name: yup.string().required("Ingrese el nombre del producto"),
-    description: yup.string().required("  la descripción del producto"),
+    name: yup
+      .string()
+      .required("Ingrese el nombre del producto")
+      .min(6, "El nombre del producto tiene que tener al menos 2 caracteres"),
+    description: yup
+      .string()
+      .required("Ingrese la descripción del producto")
+      .min(
+        6,
+        "La descripcion del producto tiene que tener un minimo de 6 caracteres"
+      ),
     price: yup
       .number()
-      .positive()
-      .integer()
+      .positive("El precio tiene que ser mayor a 0")
+      .integer("El precio tiene que ser un numero entero")
       .transform((value) => (isNaN(value) ? null : value))
       .nullable(),
     image: yup
@@ -101,7 +110,6 @@ const schema = yup
   })
   .required();
 
-//TODO: Add functions and props to create and edit products in the same Component
 const ProductForm = () => {
   const [searchParams] = useSearchParams();
   const [isEdit, setIsEdit] = useState<boolean>(false);
@@ -122,6 +130,8 @@ const ProductForm = () => {
       available: product?.available,
     },
   });
+
+  //FIXME: Add default value on image.
   useEffect(() => {
     if (productId) {
       const productToEdit = mockResult.data.find(
