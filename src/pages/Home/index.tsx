@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { lightGray, secondary, white } from "../../utils/colors";
 import ProductRow from "../../components/ProductRow";
 import { product } from "../../utils/routes";
-import mockResult from "./data-mockup.json";
+import mockResult from "../../utils/data-mockup.json";
 
 const ProductsContainer = styled.div`
   display: flex;
@@ -24,6 +24,8 @@ const AddProductButton = styled.button`
   width: 90%;
   margin: 0 auto;
 `;
+
+//FIXME: ProductInterface is used in two differents components (Home | Product)
 interface ProductInterface {
   id: number;
   name: string;

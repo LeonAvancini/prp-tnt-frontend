@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { darkGray, gray, primary, secondary, white } from "../../utils/colors";
-import { editproduct } from "../../utils/routes";
+import { product } from "../../utils/routes";
 import Modal from "../Modal";
 
 const RowContainer = styled.div<{ showProduct?: boolean }>`
@@ -122,7 +122,7 @@ const ProductRow = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleClick = () => {
-    const url = editproduct + id;
+    const url = product + "?id=" + id;
     navigate(url);
   };
 

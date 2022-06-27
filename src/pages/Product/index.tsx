@@ -1,7 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import * as yup from "yup";
+
+import mockResult from "../../utils/data-mockup.json";
 
 import { lightGray, primary, red, secondary, white } from "../../utils/colors";
 
@@ -63,6 +67,16 @@ interface FormData {
   available: boolean;
 }
 
+//FIXME: ProductInterface is used in two differents components (Home | Product)
+interface ProductInterface {
+  id: number;
+  name: string;
+  description: string;
+  price: number | null;
+  image?: string;
+  available: boolean;
+}
+
 const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
 const schema = yup
@@ -89,18 +103,43 @@ const schema = yup
 
 //TODO: Add functions and props to create and edit products in the same Component
 const ProductForm = () => {
+  const [searchParams] = useSearchParams();
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [product, setProduct] = useState<ProductInterface>();
+  const productId = searchParams.get("id");
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormData>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      name: product?.name,
+      description: product?.description,
+      price: product?.price,
+      image: product?.image,
+      available: product?.available,
+    },
   });
+  useEffect(() => {
+    if (productId) {
+      const productToEdit = mockResult.data.find(
+        (element) => element.id === parseInt(productId)
+      );
+      setProduct(productToEdit);
+      reset(productToEdit);
+      setIsEdit(true);
+    }
+  }, [productId, reset]);
+
   const onSubmit = handleSubmit((data) => console.log(data));
 
   return (
     <Container>
-      <Title>Ingresar nuevo producto</Title>
+      <Title>
+        {isEdit ? "Editar producto existente" : "Ingresar nuevo producto"}
+      </Title>
       <FormContainer onSubmit={onSubmit}>
         <InputContainer>
           <LabelStyled>
@@ -137,7 +176,9 @@ const ProductForm = () => {
           <LabelStyled>Disponible</LabelStyled>
           <input type="checkbox" {...register("available")} />
         </InputContainer>
-        <ButtonStyled type="submit">Agregar producto</ButtonStyled>
+        <ButtonStyled type="submit">
+          {isEdit ? "Editar producto" : "Agregar producto"}
+        </ButtonStyled>
       </FormContainer>
     </Container>
   );
