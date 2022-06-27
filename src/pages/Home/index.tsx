@@ -21,7 +21,7 @@ interface ProductInterface {
 
 const Home = () => {
   const { data }: { data: ProductInterface[] } = mockResult;
-
+  //TODO: Handling loading and error when we get data from API
   return (
     <ProductsContainer>
       {data.map((product: ProductInterface) => (
