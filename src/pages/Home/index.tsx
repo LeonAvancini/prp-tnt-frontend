@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 
 import { lightGray, secondary, white } from "../../utils/colors";
 import ProductRow from "../../components/ProductRow";
 import { product } from "../../utils/routes";
-import mockResult from "../../utils/data-mockup.json";
 
 const ProductsContainer = styled.div`
   display: flex;
@@ -37,6 +38,7 @@ interface ProductInterface {
 
 const Home = () => {
   const navigate = useNavigate();
+  const [products, setProducts] = useState<ProductInterface[] | undefined>([]);
 
   const handleClick = () => {
     navigate(product);
@@ -44,8 +46,31 @@ const Home = () => {
 
   const ADMIN = true;
 
-  const { data }: { data: ProductInterface[] } = mockResult;
-  //TODO: Handling loading and error when we get data from API
+  const fetchProducts = async () => {
+    const response = await fetch("http://localhost:3000/api/product/all");
+    return response.json();
+  };
+
+  const { isLoading, isError, data, error } = useQuery<
+    ProductInterface[],
+    Error
+  >("products", fetchProducts);
+
+  useEffect(() => {
+    setProducts(data);
+  }, [data]);
+
+  if (isLoading) {
+    return <>Cargando...</>;
+  }
+
+  if (isError) {
+    return <>Ocurrio un error - {error}</>;
+  }
+
+  if (!products) {
+    return <>No se encontraron productos</>;
+  }
 
   return (
     <ProductsContainer>
@@ -54,7 +79,7 @@ const Home = () => {
           Agregar Producto
         </AddProductButton>
       )}
-      {data.map((product: ProductInterface) => (
+      {products.map((product: ProductInterface) => (
         <ProductRow
           key={product.id}
           id={product.id}
