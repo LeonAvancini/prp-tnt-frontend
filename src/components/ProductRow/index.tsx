@@ -129,7 +129,7 @@ const ProductRow = ({
   const ADMIN = true;
 
   const handleModal = () => {
-    // e.preventDefault();
+    //FIXME: double render??
     console.log("ENTRO");
     toggleModal();
   };

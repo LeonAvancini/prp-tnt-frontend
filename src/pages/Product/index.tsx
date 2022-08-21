@@ -1,13 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { useQuery } from "react-query";
 import * as yup from "yup";
 
-import mockResult from "../../utils/data-mockup.json";
-
 import { lightGray, primary, red, secondary, white } from "../../utils/colors";
+import { createProduct, fetchProductById, updateProduct } from "../../services";
 
 const Container = styled.div`
   display: flex;
@@ -77,7 +77,7 @@ interface ProductInterface {
   available: boolean;
 }
 
-const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
+// const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
 const schema = yup
   .object({
@@ -98,20 +98,21 @@ const schema = yup
       .integer("El precio tiene que ser un numero entero")
       .transform((value) => (isNaN(value) ? null : value))
       .nullable(),
-    image: yup
-      .mixed()
-      .test("fileSize", "Imagen del producto es requerida", (file) => {
-        return file && file[0]?.size;
-      })
-      .test("fileFormat", "Formato de imagen no soportado", (file) => {
-        return SUPPORTED_FORMATS.includes(file[0]?.type);
-      }),
+    // image: yup
+    //   .mixed()
+    //   .test("fileSize", "Imagen del producto es requerida", (file) => {
+    //     return file && file[0]?.size;
+    //   })
+    //   .test("fileFormat", "Formato de imagen no soportado", (file) => {
+    //     return SUPPORTED_FORMATS.includes(file[0]?.type);
+    //   }),
     available: yup.boolean(),
   })
   .required();
 
 const ProductForm = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const [product, setProduct] = useState<ProductInterface>();
   const productId = searchParams.get("id");
@@ -131,19 +132,51 @@ const ProductForm = () => {
     },
   });
 
-  //FIXME: Add default value on image.
+  const { isLoading, isError, data } = useQuery<ProductInterface, Error>(
+    "product",
+    () => fetchProductById(productId)
+  );
+
   useEffect(() => {
-    if (productId) {
-      const productToEdit = mockResult.data.find(
-        (element) => element.id === parseInt(productId)
-      );
-      setProduct(productToEdit);
-      reset(productToEdit);
+    if (data) {
+      setProduct(data);
+      reset(data);
       setIsEdit(true);
     }
-  }, [productId, reset]);
+  }, [data, reset]);
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit((data) => {
+    if (productId) {
+      updateProduct({
+        id: parseInt(productId),
+        name: data.name,
+        description: data.description,
+        price: data.price,
+        image: data.image,
+        available: data.available,
+      });
+      //FIXME: Wait to upset before go back
+      navigate(-1);
+    } else {
+      createProduct({
+        name: data.name,
+        description: data.description,
+        price: data.price,
+        image: data.image,
+        available: data.available,
+      });
+      //FIXME: Wait to upset before go back
+      navigate(-1);
+    }
+  });
+
+  if (isLoading) {
+    return <>Cargando...</>;
+  }
+
+  if (isError) {
+    return <>Hubo un error...</>;
+  }
 
   return (
     <Container>
@@ -176,9 +209,7 @@ const ProductForm = () => {
           <ErrorMessage>{errors.price?.message}</ErrorMessage>
         </InputContainer>
         <InputContainer>
-          <LabelStyled>
-            <Required>*</Required> Imagen
-          </LabelStyled>
+          <LabelStyled>Imagen</LabelStyled>
           <input type="file" {...register("image")} />
           <ErrorMessage>{errors.image?.message}</ErrorMessage>
         </InputContainer>

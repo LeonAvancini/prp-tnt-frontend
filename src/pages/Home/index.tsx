@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { useQuery } from "react-query";
+import styled from "styled-components";
 
 import { lightGray, secondary, white } from "../../utils/colors";
 import ProductRow from "../../components/ProductRow";
+import { fetchAllProducts } from "../../services";
 import { product } from "../../utils/routes";
 
 const ProductsContainer = styled.div`
@@ -46,15 +47,10 @@ const Home = () => {
 
   const ADMIN = true;
 
-  const fetchProducts = async () => {
-    const response = await fetch("http://localhost:3000/api/product/all");
-    return response.json();
-  };
-
   const { isLoading, isError, data, error } = useQuery<
     ProductInterface[],
     Error
-  >("products", fetchProducts);
+  >("products", fetchAllProducts);
 
   useEffect(() => {
     setProducts(data);
@@ -71,7 +67,6 @@ const Home = () => {
   if (!products) {
     return <>No se encontraron productos</>;
   }
-
   return (
     <ProductsContainer>
       {ADMIN && (
