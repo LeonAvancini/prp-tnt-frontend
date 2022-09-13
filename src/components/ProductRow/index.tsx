@@ -130,7 +130,6 @@ const ProductRow = ({
 
   const handleModal = () => {
     //FIXME: double render??
-    console.log("ENTRO");
     toggleModal();
   };
 

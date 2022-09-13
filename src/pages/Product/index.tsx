@@ -146,28 +146,32 @@ const ProductForm = () => {
   }, [data, reset]);
 
   const onSubmit = handleSubmit((data) => {
-    if (productId) {
-      updateProduct({
-        id: parseInt(productId),
-        name: data.name,
-        description: data.description,
-        price: data.price,
-        image: data.image,
-        available: data.available,
-      });
-      //FIXME: Wait to upset before go back
-      navigate(-1);
-    } else {
-      createProduct({
-        name: data.name,
-        description: data.description,
-        price: data.price,
-        image: data.image,
-        available: data.available,
-      });
-      //FIXME: Wait to upset before go back
-      navigate(-1);
+    try {
+      if (productId) {
+        updateProduct({
+          id: parseInt(productId),
+          name: data.name,
+          description: data.description,
+          price: data.price,
+          image: data.image,
+          available: data.available,
+        });
+        //FIXME: Wait to upset before go back
+        navigate(-1);
+      } else {
+        createProduct({
+          name: data.name,
+          description: data.description,
+          price: data.price,
+          image: data.image,
+          available: data.available,
+        });
+        //FIXME: Wait to upset before go back
+      }
+    } catch (e) {
+      console.log("Error", e);
     }
+    navigate(-1);
   });
 
   if (isLoading) {
